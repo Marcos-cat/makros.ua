@@ -57,3 +57,12 @@ Struct! ←^ (
 # °16 Person~Age Person~PassYear Me
 # °"jan Makoso" Person~FullName Me
 # ---
+
+Match! ←^ (
+  ⍣⍚°$"_->_"(⍤"All branches must contain `pattern -> code`"0.)
+  ⍚(
+    ⍚$"°(_)" ⊜□⊸≠@+
+    ⍣°{∘}($"⍣(_)"/$"_|_")
+  )
+  $"⍣(_)()"/$"_|_"⍚$"case(_) (_)":
+)
