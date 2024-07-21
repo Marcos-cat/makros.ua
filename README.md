@@ -98,7 +98,7 @@ Example:
 
 ```uiua
 
----Color
+---Color ~ Temperature
   Enum![Red Orange Yellow Green Blue Purple]
 
   Temperature ← Match!(
