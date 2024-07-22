@@ -14,7 +14,6 @@ Enum! ←^ (
   }
 )
 
-
 # An array with functions to retrieve named fields.
 Struct! ←^ (
   ⊜□⊸≠@ ⍣(⊙0 °{$"[_]"}|⊙1 °{$"{_}"})
@@ -22,7 +21,7 @@ Struct! ←^ (
   ⍤"Struct fields must all be unique"⊸≍⊸◴
   /$"_\n_"{
     ⊃(
-      $"New ← _"⨬$"[_]"$"{_}":↯⊙@⊙⧻
+      ⊂⊃($"New ← _"⨬$"[_]"$"{_}":↯⊙@⊙⧻|$" # ? _"/$"_ _")
     | $"Fields ← _"repr
     | $"AsMap ← map Fields"
     | /◇⊂ ⍚$"_ ← _⊡_\n" ⊙:: ⊓°⊏(¤⨬"""°□")
