@@ -14,19 +14,29 @@ Enum! ←^ (
   }
 )
 
+Boxed ↚ 1
+Ranked ↚ 2
+
 # An array with functions to retrieve named fields.
 Struct! ←^ (
-  ⊜□⊸≠@ ⍣(⊙0 °{$"[_]"}|⊙1 °{$"{_}"})
+  ⊜□⊸≠@ ⍣(:[Ranked ∘] ⋕▽⊸≠@ :°{$"[_:_]"}|⊙0 °{$"[_]"}|⊙Boxed °{$"{_}"})
+
   ⍤"Structs must contain at least one field">0⊸⧻
   ⍤"Struct fields must all be unique"⊸≍⊸◴
+
   /$"_\n_"{
     ⊃(
-      $"New ← ⍉_ # ? _"⊃(⨬$"[_]"$"{_}":↯⊙@⊙⧻)/$"_ _"
+      $"RankMagic ↚ _⍉" ⨬(⋅""|$"setinv(⍜☇≡⍉_|⍜☇≡°⍉_)".+1⊢⇌)=Ranked⊸⋅⊢
+    | $"New ← RankMagic _ # ? _"⊃(
+        ⨬$"[_]"$"{_}"=Boxed⊢:↯⊙@⊙⧻
+      | /$"_ _"
+      )
     | $"Fields ← _"repr
     | $"AsMap ← map Fields"
-    | /◇⊂ ⍚$"_ ← _⊡_°⍉\n" ⊙:: ⊓°⊏(¤⨬"""°□")
+    | /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□"=Boxed⊢)
     )
   }
+  ?
 )
 
 # A rust-style pattern match, similar to ⍣ `try`

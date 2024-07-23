@@ -23,6 +23,22 @@ Size ← ↙2 △ Lena
 ---
 
 ---test
+---Line
+  Struct![Pt₁ Pt₂ : 1]
+---
+
+L ← Line~New 1_2 3_4
+⋅⍤◠≍ [1_2 3_4] L
+⋅⍤◠≍ [1_2 2_3] Line~Pt₁ [L +1L]
+⋅⍤◠≍ [3_4 4_5] Line~Pt₂ [L +1L]
+
+Ls ← Line~New [0_0 3_4 9_10] [1_1 3_5 10_9]
+⋅⍤◠≍ 3_2_2 △Ls
+E ← Line~Pt₂ ↯2 Ls
+⋅⍤◠≍ 2_3_2 △E
+---
+
+---test
 ---Quadratic ~ Solve
   Struct![a b c]
   Solve ← ÷⊃(×2a|+⊃(¯b|⊟⊸¯√-⊃(×4×⊃a c|ⁿ2 b)))
