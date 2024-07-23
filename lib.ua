@@ -36,7 +36,6 @@ Struct! ←^ (
     | /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□"=Boxed⊢)
     )
   }
-  ?
 )
 
 # A rust-style pattern match, similar to ⍣ `try`
