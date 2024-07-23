@@ -14,6 +14,15 @@ Me ← Person~New "jan" "Makoso" 15
 ---
 
 ---test
+---Px
+  Struct![Red Green Blue]
+---
+Size ← ↙2 △ Lena
+⋅⍤◠≍ Size △ Px~Red Lena
+⋅⍤◠≍ ⊂3Size △ [°Px~New] Lena
+---
+
+---test
 ---Quadratic ~ Solve
   Struct![a b c]
   Solve ← ÷⊃(×2a|+⊃(¯b|⊟⊸¯√-⊃(×4×⊃a c|ⁿ2 b)))
