@@ -1,10 +1,16 @@
 E ↚ ⍤⊙0
 
+NotUnique ← /$"_, _"⍚$"`_`"⟜(=0⧻)▽¬⊸◰
+
 # A set of named distinguishable constants.
 Enum! ←^ (
   ⊜□⊸≠@ °{$"[_]"}
-  ⍤"Enums must contain at least one variant">0⊸⧻
-  ⍤"Enum variants must all be unique"⊸≍⊸◴
+
+  # Track caller!
+  ⟜⊃(
+    ⍤"Enums must contain at least one variant">0⧻
+  | ⍤$"Enum variants must all be unique: _" NotUnique
+  )
   /$"_\n_"{
     ⊃(
       $"Variants ← _"repr
@@ -17,12 +23,13 @@ Enum! ←^ (
 Boxed ↚ 1
 Ranked ↚ 2
 
-# An array with functions to retrieve named fields.
-Struct! ←^ (
-  ⊜□⊸≠@ ⍣(:[Ranked ∘] ⋕▽⊸≠@ :°{$"[_:_]"}|⊙0 °{$"[_]"}|⊙Boxed °{$"{_}"})
+StructImpl ↚ (
+  ⊜□⊸≠@ ⍣(⊙([Ranked ∘] ⋕▽⊸≠@ )°{$"[_:_]"}|⊙0 °{$"[_]"}|⊙Boxed °{$"{_}"})
 
-  ⍤"Structs must contain at least one field">0⊸⧻
-  ⍤"Struct fields must all be unique"⊸≍⊸◴
+  ⟜⊃(
+    ⍤"Structs must contain at least one field">0⧻
+  | ⍤$"Struct fields must all be unique: _"NotUnique
+  )
 
   /$"_\n_"{
     ⊃(
@@ -32,11 +39,16 @@ Struct! ←^ (
       | /$"_ _"
       )
     | $"Fields ← _"repr
-    | $"AsMap ← map Fields"
+    | $"Map ← map Fields"
     | /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□"=Boxed⊢)
     )
   }
 )
+
+# An array with functions to retrieve named fields.
+Struct! ←^ (StructImpl) # Track caller!
+# An array with functions to retrieve named fields.
+Struct‼ ←^ $"---_\n _ \n ---"⊙(StructImpl)°⊂ # Track caller!
 
 # A rust-style pattern match, similar to ⍣ `try`
 Match! ←^ (

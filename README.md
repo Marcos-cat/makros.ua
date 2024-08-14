@@ -34,7 +34,7 @@ Makros ~ "git: Marcos-cat/makros" # Import namespace
 
 - Field accessors for each field
 - `New` function which pops all fields off the stack and into an array
-- `AsMap` function which converts an instance into a string-accessed `map`
+- `Map` function which converts an instance into a string-accessed `map`
 - `Fields` array which is the name of each field as a string
 - Structs defined with `[]` will not be boxed, and ones defined with `{}` will
 
@@ -52,13 +52,23 @@ Person~New "bobby" "tables" 7
 Person~FullName
 ## "bobby tables"
 ◌
-Person~AsMap
+Person~Map
 ## ╭─
 ##   ⌜FirstName⌟ → ⌜bobby⌟
 ##   ⌜LastName⌟  → ⌜tables⌟
 ##   ⌜Age⌟       →       □7
 ##                          ╯
 ```
+
+If you don't need custom methods on the struct, there is a shorthand to create
+the module inline.
+
+```uiua
+Struct‼Person{FirstName LastName Age}
+```
+
+> The macro `Struct‼` has to be imported separately from `Struct!`, even though
+> they share a name.
 
 ### `Enum!`
 

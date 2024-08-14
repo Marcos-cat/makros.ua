@@ -1,4 +1,4 @@
-~ "./lib.ua" ~ Enum! Match! Struct!
+~ "./lib.ua" ~ Enum! Match! Struct! Struct‼
 
 # Experimental!
 
@@ -14,12 +14,18 @@ Me ← Person~New "jan" "Makoso" 15
 ---
 
 ---test
+Struct‼Pixel[R G B]
+
+⍤⤙≍ [0.8 0.3 0.5] Pixel 0.8 0.3 0.5
+---
+
+---test
 ---Px
   Struct![Red Green Blue]
 ---
 Size ← ↙2 △ Lena
-⋅⍤◠≍ Size △ Px~Red Lena
-⋅⍤◠≍ ⊂3Size △ [°Px~New] Lena
+⍤⤙≍ Size △ Px~Red Lena
+⍤⤙≍ ⊂3Size △ [°Px~New] Lena
 ---
 
 ---test
