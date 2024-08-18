@@ -23,6 +23,11 @@ Enum! ←^ (
 Boxed ↚ 1
 Ranked ↚ 2
 
+# ? Fields
+FieldsImpl ↚ $"Fields ← _"repr
+# ? Fields IsBoxed
+AccessorImpl ↚ /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□")
+
 StructImpl ↚ (
   ⊜□⊸≠@ ⍣(⊙([Ranked ∘] ⋕▽⊸≠@ )°{$"[_:_]"}|⊙0 °{$"[_]"}|⊙Boxed °{$"{_}"})
 
@@ -34,13 +39,13 @@ StructImpl ↚ (
   /$"_\n_"{
     ⊃(
       $"RankMagic ↚ _⍉" ⨬(⋅""|$"setinv(⍜☇≡⍉_|⍜☇≡°⍉_)".+1⊢⇌)=Ranked⊸⋅⊢
-    | $"New ← RankMagic _ # ? _"⊃(
+    | $"New ← RankMagic _ _"⊃(
         ⨬$"[_]"$"{_}"=Boxed⊢:↯⊙@⊙⧻
-      | /$"_ _"
+      | $" # ? _"/$"_ _"
       )
-    | $"Fields ← _"repr
+    | FieldsImpl
     | $"Map ← map Fields"
-    | /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□"=Boxed⊢)
+    | AccessorImpl ⊙(=Boxed ⊢)
     )
   }
 )
