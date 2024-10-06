@@ -1,2 +1,5 @@
 - Match conditionals
-- Exhaustive enum match
+- Exhaustive enum match 
+- Document enum box changes 
+- Document enum shorthand
+- Document meta macros

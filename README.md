@@ -13,13 +13,13 @@ larger programs.
 ## Use Makros
 
 ```uiua
-~ "git: Marcos-cat/makros" ~ Struct! # Import by name
+~ "git: github.com/Marcos-cat/makros" ~ Struct! # Import by name
 ```
 
 or
 
 ```uiua
-Makros ~ "git: Marcos-cat/makros" # Import namespace
+Makros ~ "git: github.com/Marcos-cat/makros" # Import namespace
 ```
 
 ## Available Macros
