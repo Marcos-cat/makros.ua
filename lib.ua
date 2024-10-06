@@ -1,66 +1,87 @@
-E ↚ ⍤⊙0
+Fmt ← $$ $"_"
 
-NotUnique ← /$"_, _"⍚$"`_`"⟜(=0⧻)▽¬⊸◰
-
-# A set of named distinguishable constants.
-Enum! ←^ (
-  ⊜□⊸≠@ °{$"[_]"}
-
-  # Track caller!
-  ⟜⊃(
-    ⍤"Enums must contain at least one variant">0⧻
-  | ⍤$"Enum variants must all be unique: _" NotUnique
-  )
-  /$"_\n_"{
-    ⊃(
-      $"Variants ← _"repr
-    | $"Display ← setinv(⊏⊙Variants|⊗⊙Variants ⍥□≠3⊸type)"
-    | /◇⊂⍚$"_ ← _\n":°⊏
-    )
-  }
+M! ←^ (
+  °{∘}
+  ⇌⊚⊸∈$ \"_
+  ∧⍜⊙↻⊂@\\
+  ⍜▽⋅@_⊸=@?
+  Fmt
 )
 
-Boxed ↚ 1
-Ranked ↚ 2
+B!  ←^ M!$"? ← _" ⍥⋅@_⊸≍M!∘ °{∘}
+BP! ←^ M!$"? ↚ _" ⍥⋅@_⊸≍M!∘ °{∘}
 
-# ? Fields
-FieldsImpl ↚ $"Fields ← _"repr
-# ? Fields IsBoxed
-AccessorImpl ↚ /◇⊂ ⍚$"_ ← _ (⊡_) °RankMagic\n" ⊙:: ⊓°⊏(¤⨬"""°□")
+Lines  ← /$"_\n_"
+Pack   ← M!((?)())/$"_|_"
+Fork   ← ⊂@⊃Pack
+Try    ← ⊂@⍣Pack
+Lines! ←^ M!(/$"_\n_" {?}) Fork ⊙◌
+# ? Identifier Body
+Module ← $$ ---_
+         $$ _
+         $$ ---
+# ? Comment Item
+Doc ← $"# _\n_"
+Sig ← $"? _" /$"_ _"
 
-StructImpl ↚ (
-  ⊜□⊸≠@ ⍣(⊙([Ranked ∘] ⋕▽⊸≠@ )°{$"[_:_]"}|⊙0 °{$"[_]"}|⊙Boxed °{$"{_}"})
-
-  ⟜⊃(
-    ⍤"Structs must contain at least one field">0⧻
-  | ⍤$"Struct fields must all be unique: _"NotUnique
-  )
-
-  /$"_\n_"{
-    ⊃(
-      $"RankMagic ↚ _⍉" ⨬(⋅""|$"setinv(⍜☇≡⍉_|⍜☇≡°⍉_)".+1⊢⇌)=Ranked⊸⋅⊢
-    | $"New ← RankMagic _ _"⊃(
-        ⨬$"[_]"$"{_}"=Boxed⊢:↯⊙@⊙⧻
-      | $" # ? _"/$"_ _"
-      )
-    | FieldsImpl
-    | $"Map ← map Fields"
-    | AccessorImpl ⊙(=Boxed ⊢)
-    )
-  }
+Assert! ←^ Fork ⊂⍚M!(⍤?) ⊙(□↯⊙@⊙/↥⍤"All asserts must have two outputs"/↧=2∩⊢⊸⇌⍉) # Track caller!
+Try‼ ←^ (
+  :°{⊙∘} ⊙(⊂⊃(↯⊙@./-|↯⊙@⊙⊢)⊡1)
+  M!⍣(?|⍤?0 ?)
 )
 
+EnumImpl ← (
+  Try‼"Invalid Enum syntax"°M![?]
+  ⊜□⊸≠@ 
+  Assert!(
+    "Enum must have at least one variant" >0⧻
+  | $"Enum variants must all be different: _" ⊃(/$"_, _"◴|≍0⧻) ▽¬⊸◰
+  )
+  Lines!(
+    B!Variants repr
+  | Lines ⍚B!∘ : °⊏
+  | Doc"Convert variants to a string representation" B!Display M!(⊏⊙Variants)
+  )
+)
+
+StructImpl ← (
+  Try‼"Invalid Struct syntax"⍣(
+    °M![?]
+    ⍣(⊙[⊸≠∞ ⋕▽⊸≠@ ] °M!(?:?))⊙[1 0]
+    ⊙0
+  | ⊙(1 0)°M!{?})
+  # ? Definition IsBox [IsRanked Rank]
+  ⊜□⊸≠@ 
+  Assert!(
+    "Struct must have at least one field" >0⧻
+  | $"Struct fields must all be different: _" ⊃(/$"_, _"◴|≍0⧻) ▽¬⊸◰
+  )
+  Lines!(
+    BP!RankMagic ⨬M!∘(M!(?⍉) ▽≠1⟜M!setinv⍜(☇?)≡⍉⍜(☇?)≡°⍉.+1⊡1)⊸⊢⋅⋅∘
+  | Doc Sig ⟜(B!New M!(RankMagic ?) ⨬M![?]M!{?} : ≡⋅@⊙)
+  | B!Fields repr
+  | Lines ⍚(Doc$"Get `_`"⟜B!∘ ⊙⊂⊙⊃⋅(▽⊙M!°□)M!(⊡?°RankMagic)) : °⊏
+  | B!Map M!(map Fields)
+  )
+)
+
+# A set of named, distinguishable constants.
+Enum! ←^ EnumImpl Try‼"Enum! takes only a defintion"°{∘} # Track caller!
+# A set of named, distinguishable constants.
+Enum‼ ←^ Module⊙EnumImpl Try‼"Enum‼ takes an identifier and a defintion"°{⊙∘} # Track caller!
+
 # An array with functions to retrieve named fields.
-Struct! ←^ (StructImpl) # Track caller!
+Struct! ←^ StructImpl Try‼"Struct! takes only a defintion"°{∘} # Track caller!
 # An array with functions to retrieve named fields.
-Struct‼ ←^ $"---_\n _ \n ---"⊙(StructImpl)°⊂ # Track caller!
+Struct‼ ←^ Module⊙StructImpl Try‼"Struct‼ takes an identifier and a defintion"°{⊙∘} # Track caller!
 
 # A rust-style pattern match, similar to ⍣ `try`
 Match! ←^ (
-  ⍣⍚⍣°$"_->_"°$"_=>_"(E"All branches must contain `pattern -> code`".)
-  ⍚(
-    ⍚$"°(_)" ⊜□⊸≠@+
-    ⍣°{∘}($"⍣(_)"/$"_|_")
+  ⊙◌
+  Try‼"All branches must contain `pattern -> code`"⍚⍣°M!(?->?)°M!(?=>?)
+  ⍚(⊜□⊸≠@+
+    ⍚M!°(?)
+    ⍣°{∘}Try
   )
-  $"⍣(_)()"/$"_|_"⍚$"case(_) (_)":
-)⊙◌
+  Try⍚M!(case(?) (?)):
+)

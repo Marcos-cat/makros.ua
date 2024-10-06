@@ -9,8 +9,8 @@
   FullName ← $"_ _"⊃FirstName LastName
 ---
 Me ← Person~New "jan" "Makoso" 15
-⋅⍤◠≍ 16 Person~Age Person~PassYear Me
-⋅⍤◠≍ "jan Makoso" Person~FullName Me
+⍤⤙≍ 16 Person~Age Person~PassYear Me
+⍤⤙≍ "jan Makoso" Person~FullName Me
 ---
 
 ---test
@@ -34,14 +34,14 @@ Size ← ↙2 △ Lena
 ---
 
 L ← Line~New 1_2 3_4
-⋅⍤◠≍ [1_2 3_4] L
-⋅⍤◠≍ [1_2 2_3] Line~Pt₁ [L +1L]
-⋅⍤◠≍ [3_4 4_5] Line~Pt₂ [L +1L]
+⍤⤙≍ [1_2 3_4] L
+⍤⤙≍ [1_2 2_3] Line~Pt₁ [L +1L]
+⍤⤙≍ [3_4 4_5] Line~Pt₂ [L +1L]
 
 Ls ← Line~New [0_0 3_4 9_10] [1_1 3_5 10_9]
-⋅⍤◠≍ 3_2_2 △Ls
+⍤⤙≍ 3_2_2 △Ls
 E ← Line~Pt₂ ↯2 Ls
-⋅⍤◠≍ 2_3_2 △E
+⍤⤙≍ 2_3_2 △E
 ---
 
 ---test
@@ -51,8 +51,8 @@ E ← Line~Pt₂ ↯2 Ls
 ---
 
 Eq ← Quadratic~New 4 ¯8 3
-⋅⍤◠≍ [4 ¯8 3] Eq
-⋅⍤◠≍ [1/2 3/2] Solve Eq
+⍤⤙≍ [4 ¯8 3] Eq
+⍤⤙≍ [1/2 3/2] Solve Eq
 ---
 
 ---test
@@ -60,11 +60,11 @@ Eq ← Quadratic~New 4 ¯8 3
   Enum![Spring Summer Fall Winter]
   Next ← ◿⧻Variants +1
 ---
-⋅⍤◠≍ □"Spring" Seasons~Display Seasons~Spring
-⋅⍤◠≍ □"Fall" Seasons~Display Seasons~Fall
-⋅⍤◠≍ ⊸◴[Seasons~Fall Seasons~Summer Seasons~Winter Seasons~Spring]
+⍤⤙≍ □"Spring" Seasons~Display Seasons~Spring
+⍤⤙≍ □"Fall" Seasons~Display Seasons~Fall
+⍤⤙≍ ⊸◴[Seasons~Fall Seasons~Summer Seasons~Winter Seasons~Spring]
 
-⋅⍤◠≍{"Fall" "Spring"} Seasons~Display [Seasons~Fall Seasons~Spring]
+⍤⤙≍{"Fall" "Spring"} Seasons~Display [Seasons~Fall Seasons~Spring]
 ---
 
 ---test
@@ -78,4 +78,7 @@ Eq ← Quadratic~New 4 ¯8 3
   | Blue + Purple -> "Cold"
   )
 ---
+
+⍤⤙≍ "Cold" Color~Temperature Color~Blue
+⍤⤙≍ "Warm" Color~Temperature Color~Yellow
 ---
