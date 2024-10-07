@@ -34,6 +34,9 @@ Makros ~ "git: github.com/Marcos-cat/makros" # Import namespace
 
 - Field accessors for each field
 - `New` function which pops all fields off the stack and into an array
+- `Default` function which fills certain fields with a predefined value
+  - Default values must directly follow the field name and enclose the value in
+    parentheses. `Age( 35 )` is correct, but `Age (35)` is not
 - `Map` function which converts an instance into a string-accessed `map`
 - `Fields` array which is the name of each field as a string
 - Structs defined with `[]` will not be boxed, and ones defined with `{}` will
@@ -42,9 +45,12 @@ Example:
 
 ```uiua
 ---Person
-  Struct!{FirstName LastName Age}
+  Struct!{FirstName("John") LastName("Smith") Age(35)}
   FullName ← $"_ _"⊃FirstName LastName
 ---
+
+Person~Default
+## {"John" "Smith" 35}
 
 Person~New "bobby" "tables" 7
 ## {"bobby" "tables" 7}

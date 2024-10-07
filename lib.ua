@@ -50,17 +50,18 @@ StructImpl ← (
     ⍣(⊙[⊸≠∞ ⋕▽⊸≠@ ] °M!(?:?))⊙[1 0]
     ⊙0
   | ⊙(1 0)°M!{?})
-  # ? Definition IsBox [IsRanked Rank]
-  ⊜□⊸≠@ 
+  ⍚⍣°M!(?(?))⊙""⊜□↥⊸⊃(≠@ |\+/-⊞=")(")
+  # ? Fields Default IsBox [IsRanked Rank]
   Assert!(
     "Struct must have at least one field" >0⧻
   | $"Struct fields must all be different: _" ⊃(/$"_, _"◴|≍0⧻) ▽¬⊸◰
   )
   Lines!(
-    BP!RankMagic ⨬M!∘(M!(?⍉) ▽≠1⟜M!setinv⍜(☇?)≡⍉⍜(☇?)≡°⍉.+1⊡1)⊸⊢⋅⋅∘
-  | Doc Sig ⟜(B!New M!(RankMagic ?) ⨬M![?]M!{?} : ≡⋅@⊙)
+    BP!RankMagic ⨬M!∘(M!(?⍉) ▽≠1⟜M!setinv⍜(☇?)≡⍉⍜(☇?)≡°⍉.+1⊡1)⊸⊢⋅⋅⋅∘
+  | Doc Sig ⟜(B!New M!(RankMagic ?) ⨬M![?]M!{?} : ≡⋅@⊙) ⊙⋅∘
+  | B!Default M!(New ?) ⊂@⊓Pack ⍚(⊂▽⊙@∘⊸≍"") ⋅∘
   | B!Fields repr
-  | Lines ⍚(Doc$"Get `_`"⟜B!∘ ⊙⊂⊙⊃⋅(▽⊙M!°□)M!(⊡?°RankMagic)) : °⊏
+  | Lines ⍚(Doc$"Get `_`"⟜B!∘ ⊙⊂⊙⊃⋅(▽⊙M!°□)M!(⊡?°RankMagic)) : °⊏ ⊙⋅∘
   | B!Map M!(map Fields)
   )
 )

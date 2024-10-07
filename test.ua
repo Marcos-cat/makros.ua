@@ -4,10 +4,12 @@
 
 ---test
 ---Person
-  Struct!{FirstName LastName Age}
+  Struct!{FirstName("John") LastName Age(35)}
   PassYear ← ⍜Age(+1)
   FullName ← $"_ _"⊃FirstName LastName
 ---
+
+⍤⤙≍ {"John" "Smith" 35} Person~Default "Smith"
 Me ← Person~New "jan" "Makoso" 15
 ⍤⤙≍ 16 Person~Age Person~PassYear Me
 ⍤⤙≍ "jan Makoso" Person~FullName Me
